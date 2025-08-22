@@ -264,8 +264,8 @@ body {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 90%;
+    width: 90%;
+    max-width: 400px;
     background: var(--bg-primary);
     z-index: 20;
     transition: var(--transition);
@@ -374,6 +374,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    padding: 20px;
 }
 
 /* Vendor Summary */
@@ -398,8 +399,8 @@ body {
     bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 90%;
+    width: 90%;
+    max-width: 400px;
     box-shadow: var(--shadow-medium);
     border: 2px solid transparent;
     transition: var(--transition);
@@ -1120,8 +1121,8 @@ body {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 90%;
+    width: 90%;
+    max-width: 400px;
     padding: 0 20px;
     z-index: 9999;
     pointer-events: auto;
@@ -1132,7 +1133,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 20px;
     background: white;
     border-bottom: 1px solid #e1e1e1;
     position: sticky;
@@ -1157,12 +1158,8 @@ body {
 }
 
 .nyt-content {
-    padding: 0;
+    padding: 20px;
     background: white;
-}
-
-.nyt-content > * {
-    padding: 0 20px;
 }
 
 .nyt-breaking {
@@ -1292,13 +1289,9 @@ body {
 }
 
 .nyt-paywall {
-    padding: 0;
+    padding: 40px 20px;
     background: white;
     min-height: 100vh;
-}
-
-.nyt-paywall > * {
-    padding: 0 20px;
 }
 
 .nyt-paywall h1 {
@@ -1386,13 +1379,9 @@ body {
 
 /* NY Times Article Page (Screen 6) */
 .nyt-article {
-    padding: 0;
+    padding: 20px;
     background: white;
     min-height: 100vh;
-}
-
-.nyt-article > * {
-    padding: 0 20px;
 }
 
 .article-header {

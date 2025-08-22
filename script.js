@@ -15,6 +15,12 @@ class AgentOS {
         this.updateDateTime();
         this.startDateTimeUpdate();
         this.setupAnimations();
+        
+        // Ensure unified quote section is hidden initially
+        const unifiedQuoteSection = document.querySelector('.unified-quote-section');
+        if (unifiedQuoteSection) {
+            unifiedQuoteSection.style.display = 'none';
+        }
     }
 
     cacheElements() {
@@ -372,6 +378,13 @@ class AgentOS {
             if (nytCta) {
                 nytCta.style.display = 'block';
                 console.log('Showing NY Times CTA');
+            }
+        } else {
+            // Hide unified quote section on all other screens
+            const unifiedQuoteSection = document.querySelector('.unified-quote-section');
+            if (unifiedQuoteSection) {
+                unifiedQuoteSection.style.display = 'none';
+                console.log('Hiding unified quote section');
             }
         }
 
