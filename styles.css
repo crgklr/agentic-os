@@ -1132,7 +1132,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    padding: 0 20px;
     background: white;
     border-bottom: 1px solid #e1e1e1;
     position: sticky;
@@ -1157,8 +1157,12 @@ body {
 }
 
 .nyt-content {
-    padding: 20px;
+    padding: 0;
     background: white;
+}
+
+.nyt-content > * {
+    padding: 0 20px;
 }
 
 .nyt-breaking {
@@ -1288,9 +1292,13 @@ body {
 }
 
 .nyt-paywall {
-    padding: 40px 20px;
+    padding: 0;
     background: white;
     min-height: 100vh;
+}
+
+.nyt-paywall > * {
+    padding: 0 20px;
 }
 
 .nyt-paywall h1 {
@@ -1378,9 +1386,13 @@ body {
 
 /* NY Times Article Page (Screen 6) */
 .nyt-article {
-    padding: 20px;
+    padding: 0;
     background: white;
     min-height: 100vh;
+}
+
+.nyt-article > * {
+    padding: 0 20px;
 }
 
 .article-header {
