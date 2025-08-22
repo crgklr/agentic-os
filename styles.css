@@ -93,7 +93,7 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 32px;
-    padding-top: env(safe-area-inset-top, 20px);
+    padding: 20px 20px 0 20px;
     position: relative;
     z-index: 15;
 }
@@ -102,18 +102,46 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    text-align:center;
 }
 
 .time {
-    font-size: 32px;
+    font-size: 38px;
     font-weight: 300;
     color: var(--text-primary);
+    line-height: 1.1;
 }
 
 .date {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--text-secondary);
     font-weight: 400;
+}
+
+/* Other screens: center time text and adjust font sizes */
+#screen-2 .header .time-section,
+#screen-3 .header .time-section,
+#screen-4 .header .time-section,
+#screen-5 .header .time-section,
+#screen-6 .header .time-section {
+    text-align: center;
+}
+
+#screen-2 .time,
+#screen-3 .time,
+#screen-4 .time,
+#screen-5 .time,
+#screen-6 .time {
+    font-size: 26px;
+    line-height: 1.2;
+}
+
+#screen-2 .date,
+#screen-3 .date,
+#screen-4 .date,
+#screen-5 .date,
+#screen-6 .date {
+    font-size: 14px;
 }
 
 .weather {
@@ -396,7 +424,7 @@ body {
     border-radius: var(--border-radius);
     padding: 20px;
     position: fixed;
-    bottom: 80px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -409,13 +437,6 @@ body {
     display: none;
 }
 
-/* Mobile positioning adjustments */
-@media (max-width: 768px) {
-    .unified-quote-section {
-        bottom: 70px;
-    }
-}
-
 .unified-quote-section:hover {
     border-color: var(--accent-blue);
     transform: translateX(-50%) translateY(-2px);
@@ -426,6 +447,7 @@ body {
     display: flex;
     align-items: center;
     gap: 16px;
+    margin: 0;
 }
 
 .quote-icon {
@@ -602,7 +624,7 @@ body {
 }
 
 #copperhead-view .vendor-content {
-    padding: 0 0 120px 0;
+    padding: 0 20px 120px 20px;
 }
 
 #copperhead-view .problem-solution {
@@ -811,7 +833,7 @@ body {
 }
 
 #kristech-view .vendor-content {
-    padding: 0 0 120px 0;
+    padding: 0 20px 120px 20px;
 }
 
 #kristech-view .problem-solution {
