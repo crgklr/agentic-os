@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="AgentOS: AI-Native Interface Demo - Pipe Burst Tracer Wire Discovery">
+    <title>AgentOS - AI-Native Interface</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- SVG Icon Sprite Sheet -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <!-- Microphone Icon -->
+      <symbol id="icon-mic" viewBox="0 0 24 24">
+        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+        <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+      </symbol>
+      
+      <!-- Send/Arrow Icon -->
+      <symbol id="icon-send" viewBox="0 0 24 24">
+        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+      </symbol>
+      
+      <!-- Back Arrow Icon -->
+      <symbol id="icon-back" viewBox="0 0 24 24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+      </symbol>
+      
+      <!-- Close/X Icon -->
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </symbol>
+      
+      <!-- Weather/Sun Icon -->
+      <symbol id="icon-weather" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="5"/>
+        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+      </symbol>
+      
+      <!-- News/Newspaper Icon -->
+      <symbol id="icon-news" viewBox="0 0 24 24">
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM15 18H4v-4h11v4zm0-5H4V9h11v4zm5 5h-4V9h4v9z"/>
+      </symbol>
+      
+      <!-- Social Media Icon -->
+      <symbol id="icon-social" viewBox="0 0 24 24">
+        <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H17c-.8 0-1.54.37-2.01 1L12 12l-2.99-3A2.5 2.5 0 0 0 7 8H5.46c-.8 0-1.54.37-2.01 1L1 18h2.5v6h16z"/>
+      </symbol>
+      
+      <!-- User/Avatar Icon -->
+      <symbol id="icon-user" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </symbol>
+      
+      <!-- Copperhead Logo Placeholder -->
+      <symbol id="icon-copperhead" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="#f97316"/>
+        <path d="M8 8h8v8H8z" fill="white"/>
+        <path d="M10 10h4v4h-4z" fill="#f97316"/>
+      </symbol>
+      
+      <!-- Kris-Tech Logo Placeholder -->
+      <symbol id="icon-kristech" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="#1e40af"/>
+        <path d="M6 12l4-4 4 4 4-4" stroke="white" stroke-width="2" fill="none"/>
+        <path d="M6 16l4-4 4 4 4-4" stroke="white" stroke-width="2" fill="none"/>
+      </symbol>
+      
+      <!-- Loading/Spinner Icon -->
+      <symbol id="icon-loading" viewBox="0 0 24 24">
+        <path d="M12 4V2A10 10 0 0 0 2 12h2a8 8 0 0 1 8-8z"/>
+      </symbol>
+      
+      <!-- Checkmark Icon -->
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </symbol>
+    </svg>
+    
+    <div id="app" class="app">
+        <!-- Screen 1: Home Interface -->
+        <div id="screen-1" class="screen active">
+            <div class="header">
+                <div class="time-section">
+                    <div class="time" id="current-time">6:42 AM</div>
+                    <div class="date" id="current-date">Thursday, August 22</div>
+                </div>
+                <div class="weather">
+                    <span class="weather-icon">
+                        <svg><use href="#icon-weather"/></svg>
+                    </span>
+                    <span class="temperature">68°F</span>
+                </div>
+            </div>
+
+            <div class="shortcuts">
+                <div class="shortcut-card">
+                    <div class="shortcut-icon">
+                        <svg><use href="#icon-news"/></svg>
+                    </div>
+                    <div class="shortcut-text">What's Today's New York Times Saying?</div>
+                </div>
+                <div class="shortcut-card">
+                    <div class="shortcut-icon">
+                        <svg><use href="#icon-social"/></svg>
+                    </div>
+                    <div class="shortcut-text">What's new on social media?</div>
+                </div>
+            </div>
+
+            <div class="personal-message">
+                <div class="message-content">
+                    <div class="message-avatar">
+                        <svg><use href="#icon-user"/></svg>
+                    </div>
+                    <div class="message-text">Your wife wants to know if you want chicken cutlets tonight</div>
+                </div>
+                <button class="reply-btn">Reply</button>
+            </div>
+
+            <div class="input-section">
+                <div class="input-container">
+                    <textarea 
+                        id="main-input" 
+                        placeholder="I need 6AWG pipe bursting tracer wire..."
+                        class="main-input"
+                        rows="1"
+                    ></textarea>
+                    <button class="mic-btn" id="mic-btn">
+                        <svg><use href="#icon-mic"/></svg>
+                    </button>
+                    <button class="send-btn" id="send-btn" disabled>
+                        <svg><use href="#icon-send"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: AI-Generated Comparison UI -->
+        <div id="screen-2" class="screen">
+            <div class="header">
+                <button class="back-btn" id="back-to-home">
+                    <svg><use href="#icon-back"/></svg>
+                </button>
+                <div class="time-section">
+                    <div class="time" id="screen2-time">6:42 AM</div>
+                    <div class="date" id="screen2-date">Thursday, August 22</div>
+                </div>
+                <button class="dismiss-btn" id="dismiss-btn">
+                    <svg><use href="#icon-close"/></svg>
+                </button>
+            </div>
+
+            <div class="comparison-content">
+                <h1 class="comparison-title">Here's what I found for 6AWG tracer wire for pipe bursting...</h1>
+                
+                <div class="options-container">
+                    <div class="option-card" data-vendor="copperhead">
+                        <div class="option-header">
+                            <div class="vendor-logo">
+                                <svg><use href="#icon-copperhead"/></svg>
+                            </div>
+                            <div class="vendor-info">
+                                <h3>Copperhead Industries</h3>
+                                <p class="product-name">SoloShot™ Xtreme</p>
+                            </div>
+                        </div>
+                        <div class="vendor-summary">
+                            <p>7x7 stranded copper-clad steel with 3/16" diameter and 4,700 lb break load. Features 50 mil HDPE insulation for direct burial and APWA color-coding. Offers stable pricing vs. copper with 5-year corrosion testing.</p>
+                        </div>
+                    </div>
+
+                    <div class="option-card" data-vendor="kristech">
+                        <div class="option-header">
+                            <div class="vendor-logo">
+                                <svg><use href="#icon-kristech"/></svg>
+                            </div>
+                            <div class="vendor-info">
+                                <h3>Kris-Tech Wire</h3>
+                                <p class="product-name">Pipe Burst Tracer Wire</p>
+                            </div>
+                        </div>
+                        <div class="vendor-summary">
+                            <p>7x7 stranded copper-clad steel with 3/16" diameter and 4,750 lb break load. Features 50 mil HDPE insulation rated for 1,000V direct burial. Made in USA, engineered for pipe bursting & HDD with higher conductivity than stainless.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="unified-quote-section" id="unified-quote-section">
+                    <div class="quote-content">
+                        <div class="quote-icon">
+                            <svg><use href="#icon-check"/></svg>
+                        </div>
+                        <div class="quote-text">
+                            <h3>Request Quotes from Both Suppliers</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 3: Vendor Microsite -->
+        <div id="screen-3" class="screen">
+            <div class="header vendor-header">
+                <button class="back-btn vendor-back-btn" id="back-to-comparison">
+                    <svg><use href="#icon-back"/></svg>
+                </button>
+                <div class="time-section vendor-time">
+                    <div class="time" id="screen3-time">6:42 AM</div>
+                    <div class="date" id="screen3-date">Thursday, August 22</div>
+                </div>
+                <button class="dismiss-btn vendor-dismiss-btn" id="dismiss-vendor">
+                    <svg><use href="#icon-close"/></svg>
+                </button>
+            </div>
+
+            <!-- Copperhead Industries View -->
+            <div id="copperhead-view" class="vendor-view" style="display: none;">
+                <div class="vendor-hero copperhead-theme">
+                    <div class="vendor-logo">
+                        <img src="https://copperheadwire.com/wp-content/uploads/2024/12/cropped-Copperhead_Logo-Primary_Dark_v2.png" alt="Copperhead Industries" onerror="this.style.display='none'">
+                    </div>
+                    <h1 class="vendor-title">SoloShot™ Xtreme</h1>
+                    <p class="vendor-subtitle">Complete Utility Locating System®</p>
+                </div>
+
+                <div class="vendor-content">
+                    <div class="problem-solution">
+                        <h2>Solving Your Underground Utility Challenges</h2>
+                        <p>When you're working on horizontal directional drilling (HDD) projects like your Folsom project, you need reliable tracer wire that won't fail during installation or break during operation. Traditional copper wire can corrode, break, and lose signal strength over time.</p>
+                        
+                        <div class="solution-highlight">
+                            <h3>SoloShot™ Xtreme Solves:</h3>
+                            <ul>
+                                <li><strong>Signal Loss:</strong> 7x7 stranded copper-clad steel maintains conductivity even when damaged</li>
+                                <li><strong>Corrosion:</strong> 50 mil HDPE insulation and corrosion-resistant materials withstand harsh underground conditions</li>
+                                <li><strong>Breakage:</strong> 4,700 lb break strength handles the stress of pipe bursting operations</li>
+                                <li><strong>Compliance:</strong> BABA compliant for government and infrastructure projects</li>
+                                <li><strong>Performance:</strong> 3 times more conductive than stainless steel, equally flexible</li>
+                                <li><strong>Reliability:</strong> Bonded metals mean no separating, no corrosion, and no theft appeal</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-specs">
+                        <div class="product-image-header">
+                            <img src="context-docs/copperhead-images/Copperhead_Multi_Tracer-Wire_500-3.jpg" alt="SoloShot Xtreme Wire" onerror="this.style.display='none'">
+                        </div>
+                        <h3>Technical Specifications</h3>
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Construction:</span>
+                                <span class="spec-value">7x7 CCS, 3/16" OD</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Break Strength:</span>
+                                <span class="spec-value">4,700 lb</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Insulation:</span>
+                                <span class="spec-value">50 mil HDPE (RoHS compliant)</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Conductivity:</span>
+                                <span class="spec-value">21%, 600V rated</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="system-benefits">
+                        <h3>Complete System Benefits</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <div class="benefit-icon">🔒</div>
+                                <h4>Locking Connectors</h4>
+                                <p>Corrosion-proof connectors that maintain signal integrity</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">📡</div>
+                                <h4>Signal Reliability</h4>
+                                <p>End-to-end signal strength for accurate utility location</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">🏗️</div>
+                                <h4>Professional Support</h4>
+                                <p>Expert guidance for your specific project requirements</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="application-details">
+                        <h3>Perfect for Your Folsom HDD Project</h3>
+                        <div class="application-content">
+                            <p><strong>Pipe Bursting:</strong> When replacing smaller pipes with larger ones, SoloShot™ Xtreme handles the extreme stress of pipe bursting operations with its 4,700 lb break strength.</p>
+                            <p><strong>Horizontal Directional Drilling:</strong> Ideal for HDD applications where you may encounter large boulders or concrete obstructions. The 7x7 stranded construction provides flexibility while maintaining strength.</p>
+                            <p><strong>Direct Burial:</strong> Rated for 600V direct burial use with 50 mil HDPE insulation that's RoHS compliant and environmentally safe.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- Kris-Tech Wire View -->
+            <div id="kristech-view" class="vendor-view" style="display: none;">
+                <div class="vendor-hero kristech-theme">
+                    <div class="vendor-logo">
+                        <img src="https://www.kristechwire.com/wp-content/uploads/2020/05/header-logo.png" alt="Kris-Tech Wire" onerror="this.style.display='none'">
+                    </div>
+                    <h1 class="vendor-title">Pipe Burst Tracer Wire</h1>
+                    <p class="vendor-subtitle">Made in USA • Same Day Quotes</p>
+                </div>
+
+                <div class="vendor-content">
+                    <div class="problem-solution">
+                        <h2>Your Time is Money - We Get It</h2>
+                        <p>In the fast-paced world of pipe bursting and HDD projects, you can't afford delays waiting for quotes or dealing with suppliers who don't understand your timeline. Every day of delay costs money and puts your project behind schedule.</p>
+                        
+                        <div class="solution-highlight">
+                            <h3>Kris-Tech Delivers:</h3>
+                            <ul>
+                                <li><strong>Same Day Quotes:</strong> Get pricing immediately, not next week</li>
+                                <li><strong>Superior Strength:</strong> 4,750 lb break load - stronger than traditional pipe burst wire</li>
+                                <li><strong>Better Conductivity:</strong> 3 times more conductive than stranded stainless steel</li>
+                                <li><strong>Made in USA:</strong> Quality you can trust, support you can count on</li>
+                                <li><strong>Durability:</strong> 50 mil HDPE insulation rated for 1,000V direct burial</li>
+                                <li><strong>Reliability:</strong> Rugged construction for critical directional drilling applications</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="product-specs">
+                        <div class="product-image-header">
+                            <img src="context-docs/kristech-images/Screenshot From 2025-08-22 10-47-35.png" alt="Kris-Tech Tracer Wire" onerror="this.style.display='none'">
+                        </div>
+                        <h3>Technical Specifications</h3>
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <span class="spec-label">Construction:</span>
+                                <span class="spec-value">7x7 CCS, 3/16" OD</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Break Strength:</span>
+                                <span class="spec-value">4,750 lb</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Insulation:</span>
+                                <span class="spec-value">50 mil HDPE, 1000V rated</span>
+                                </div>
+                            <div class="spec-item">
+                                <span class="spec-label">Conductivity:</span>
+                                <span class="spec-value">21%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="speed-benefits">
+                        <h3>Why Speed Matters</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <div class="benefit-icon">⚡</div>
+                                <h4>Instant Quotes</h4>
+                                <p>No waiting for sales teams to get back to you</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">🚚</div>
+                                <h4>Fast Shipping</h4>
+                                <p>Custom orders produced and shipped quickly</p>
+                            </div>
+                            <div class="benefit-item">
+                                <div class="benefit-icon">🇺🇸</div>
+                                <h4>American Made</h4>
+                                <p>Quality manufacturing in Rome, NY since 1984</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="application-details">
+                        <h3>Engineered for Critical Applications</h3>
+                        <div class="application-content">
+                            <p><strong>Pipe Bursting:</strong> With 4,750 lb break load, Kris-Tech wire is stronger than traditional pipe burst tracer wire and handles the extreme stress of pipe bursting operations.</p>
+                            <p><strong>Critical Directional Drilling:</strong> Designed specifically for applications where break load is essential. The 7x7 stranded CCS construction provides the strength and flexibility needed for challenging HDD projects.</p>
+                            <p><strong>High Voltage Rating:</strong> Rated for 1,000V direct burial use, making it suitable for high-voltage applications where safety is paramount.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Screen 4: NY Times Front Page -->
+        <div id="screen-4" class="screen">
+            <div class="nyt-header">
+                <button class="back-btn" data-screen="1">
+                    <svg><use href="#icon-back"/></svg>
+                </button>
+                <div class="nyt-logo">
+                    <img src="context-docs/nytimes/times-logo.svg" alt="The New York Times" class="nyt-logo-img">
+                </div>
+                <div class="nyt-time">Aug. 22, 2025</div>
+            </div>
+
+            <div class="nyt-content">
+                <div class="nyt-breaking" data-screen="5">
+                    <span class="breaking-label">BREAKING</span>
+                    <img src="context-docs/nytimes/jerome-powell.webp" alt="Jerome Powell" class="nyt-breaking-image">
+                    <h1 class="nyt-headline">Powell Sends Strongest Signal Yet That Interest Rate Cuts Are Coming</h1>
+                    <p class="nyt-lead">Jerome Powell said the "balance of risks" across the economy had started to shift, raising the odds the Federal Reserve lowers borrowing costs in September.</p>
+                    <span class="nyt-read-time">6 min read</span>
+                </div>
+
+                <div class="nyt-stories">
+                    <div class="nyt-story" data-screen="5">
+                        <img src="context-docs/nytimes/bolton-raid.jpg" alt="FBI searches John Bolton's home" class="nyt-story-image">
+                        <h3>F.B.I. Searches Home and Office of John Bolton, a Former Trump Adviser</h3>
+                        <span class="nyt-read-time">3 min read</span>
+                    </div>
+                    <div class="nyt-story" data-screen="5">
+                        <img src="context-docs/nytimes/stock-market.webp" alt="Stock market chart" class="nyt-story-image">
+                        <h3>How Long Can This Uncanny Stock Market Prosper?</h3>
+                        <span class="nyt-read-time">5 min read</span>
+                    </div>
+                    <div class="nyt-story" data-screen="5">
+                        <img src="context-docs/nytimes/news-quiz.webp" alt="News quiz" class="nyt-story-image">
+                        <h3>How Trump Is Shaking Trust in the Economy, Your Friday News Quiz, and More</h3>
+                        <span class="nyt-read-time">14 min listen</span>
+                    </div>
+                    <div class="nyt-story" data-screen="5">
+                        <img src="context-docs/nytimes/federal-workers.webp" alt="Federal workers" class="nyt-story-image">
+                        <h3>Year Will End With 300,000 Fewer Federal Workers, Trump Official Says</h3>
+                        <span class="nyt-read-time">4 min read</span>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <!-- Screen 5: NY Times Subscription Paywall -->
+        <div id="screen-5" class="screen">
+            <div class="nyt-header">
+                <button class="back-btn" data-screen="4">
+                    <svg><use href="#icon-back"/></svg>
+                </button>
+                <div class="nyt-logo">
+                    <img src="context-docs/nytimes/times-logo.svg" alt="The New York Times" class="nyt-logo-img">
+                </div>
+            </div>
+
+            <div class="nyt-paywall">
+                <h1>Benefit from the facts. Subscribe to The Times.</h1>
+                <div class="nyt-offer">
+                    <p class="nyt-sale">Sale ends soon</p>
+                    <p class="nyt-price">$1/week for your first six months year.</p>
+                    <p class="nyt-billing">Billed as $4 every four weeks, then $25 thereafter.</p>
+                </div>
+                <button class="nyt-continue-btn">Continue with card</button>
+                <p class="nyt-cancel">Cancel or pause anytime.</p>
+                
+                <div class="nyt-fine-print">
+                    <p><strong>--fine print--</strong></p>
+                    <p>All Access includes news, plus Games, Cooking, Audio, Wirecutter and The Athletic.</p>
+                    <p>Offer for a New York Times All Access subscription; current subscribers not eligible. Subscription excludes print edition. Some games may be available without a subscription. You will be automatically charged in advance $4.00 every 4 weeks for 1 year, and $25.00 every 4 weeks thereafter. You can cancel prior to renewal from your account settings online or during limited hours via chat or phone. Cancellation is effective at the end of the current billing period unless an exception applies; see our Terms of Sale. Taxes may apply. Offer terms are subject to change.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 6: NY Times Article Page -->
+        <div id="screen-6" class="screen">
+            <div class="nyt-header">
+                <button class="back-btn" data-screen="4">
+                    <svg><use href="#icon-back"/></svg>
+                </button>
+                <div class="nyt-logo">
+                    <img src="context-docs/nytimes/times-logo.svg" alt="The New York Times" class="nyt-logo-img">
+                </div>
+            </div>
+
+            <div class="nyt-article">
+                <div class="article-header">
+                    <span class="article-category">Business</span>
+                    <h1 class="article-title">Powell Sends Strongest Signal Yet That Interest Rate Cuts Are Coming</h1>
+                    <p class="article-subtitle">Jerome Powell said the "balance of risks" across the economy had started to shift, raising the odds the Federal Reserve lowers borrowing costs in September.</p>
+                    <div class="article-meta">
+                        <span class="article-author">By Jeanna Smialek</span>
+                        <span class="article-date">Aug. 22, 2025</span>
+                        <span class="article-read-time">6 min read</span>
+                    </div>
+                </div>
+
+                <div class="article-image">
+                    <img src="context-docs/nytimes/jerome-powell.webp" alt="Jerome Powell" class="article-hero-image">
+                    <p class="image-caption">Jerome Powell, the Federal Reserve chair, at a news conference in Washington on Wednesday.</p>
+                    <p class="image-credit">Jason Andrew for The New York Times</p>
+                </div>
+
+                <div class="article-content">
+                    <p>Jerome Powell, the Federal Reserve chair, delivered his strongest signal yet on Wednesday that the central bank is ready to cut interest rates, saying that the "balance of risks" across the economy had started to shift and that the Fed was "getting back on two-way street."</p>
+                    
+                    <p>Mr. Powell's comments, made during a news conference after the Fed's July meeting, were widely interpreted as a sign that the central bank is preparing to lower borrowing costs at its next meeting in September. The Fed left rates unchanged at this meeting, as expected, keeping them at a range of 5.25 to 5.5 percent.</p>
+                    
+                    <p>"We're getting back on two-way street," Mr. Powell said, referring to the Fed's ability to both raise and lower rates as economic conditions change. "We're no longer in a place where it's just about how high to raise rates."</p>
+                    
+                    <p>The Fed chair's remarks came as the economy shows signs of cooling after a period of strong growth. Inflation has moderated from its peak last year, and the labor market, while still strong, has shown some signs of easing.</p>
+                    
+                    <p>"The balance of risks has shifted," Mr. Powell said. "We're now in a position where we can be more patient and see how the data evolves."</p>
+                    
+                    <p>Financial markets reacted positively to Mr. Powell's comments, with stocks rising and bond yields falling. The S&P 500 index gained 1.2 percent, while the yield on the 10-year Treasury note fell to 4.15 percent from 4.25 percent.</p>
+                    
+                    <p>Analysts said Mr. Powell's remarks were the clearest indication yet that the Fed is preparing to pivot from its aggressive rate-hiking campaign, which began in March 2022, to a more accommodative stance.</p>
+                    
+                    <p>"This is a significant shift in tone," said Diane Swonk, chief economist at KPMG. "Powell is essentially saying that the Fed has done enough to fight inflation and is now ready to support the economy if needed."</p>
+                    
+                    <p>The Fed's next meeting is scheduled for Sept. 17-18, and many economists now expect the central bank to cut rates by a quarter percentage point at that meeting.</p>
+                    
+                    <p>However, Mr. Powell emphasized that the Fed would remain data-dependent and that any rate cuts would depend on continued progress on inflation and the overall health of the economy.</p>
+                    
+                    <p>"We're not on a preset course," he said. "We'll make decisions meeting by meeting based on the data."</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Fixed Bottom CTA for Copperhead -->
+    <div class="fixed-cta copperhead-fixed" id="copperhead-cta" style="display: none;">
+        <button class="fixed-quote-btn copperhead-fixed-theme">
+            <svg><use href="#icon-send"/></svg>
+            Request Quote
+        </button>
+    </div>
+
+    <!-- Fixed Bottom CTA for Kris-Tech -->
+    <div class="fixed-cta kristech-fixed" id="kristech-cta" style="display: none;">
+        <button class="fixed-quote-btn kristech-fixed-theme">
+            <svg><use href="#icon-send"/></svg>
+            Request Quote
+        </button>
+    </div>
+
+    <!-- Fixed Bottom CTA for NY Times -->
+    <div class="nyt-fixed-cta">
+        <p>You are not yet subscribed to the NY Times</p>
+        <button class="nyt-subscribe-btn" data-screen="5">Subscribe for $4.99/mo</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

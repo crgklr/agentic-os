@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentOS Demo Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #2563eb;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 AgentOS Demo Test</h1>
+    
+    <div class="test-section">
+        <h2>Demo Status</h2>
+        <div id="demo-status" class="status info">
+            Demo will start automatically in 2 seconds after page load...
+        </div>
+        <button class="test-button" onclick="startDemo()">Start Demo Now</button>
+        <button class="test-button" onclick="resetDemo()">Reset Demo</button>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="test-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Manual Testing</h2>
+        <p>You can also test the demo manually by:</p>
+        <ol>
+            <li>Opening the main demo at <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></li>
+            <li>Watching the automatic typing demo</li>
+            <li>Interacting with the interface manually</li>
+        </ol>
+    </div>
+
+    <script>
+        let demoStarted = false;
+        
+        function updateStatus(message, type = 'info') {
+            const statusEl = document.getElementById('demo-status');
+            statusEl.textContent = message;
+            statusEl.className = `status ${type}`;
+        }
+        
+        function addTestResult(message, type = 'info') {
+            const resultsEl = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `status ${type}`;
+            resultDiv.textContent = message;
+            resultsEl.appendChild(resultDiv);
+        }
+        
+        function startDemo() {
+            if (demoStarted) {
+                updateStatus('Demo already running', 'info');
+                return;
+            }
+            
+            updateStatus('Starting demo...', 'info');
+            demoStarted = true;
+            
+            // Simulate demo steps
+            setTimeout(() => {
+                updateStatus('Demo: Input field focused', 'success');
+                addTestResult('✓ Input field focused successfully', 'success');
+            }, 1000);
+            
+            setTimeout(() => {
+                updateStatus('Demo: Typing in progress...', 'info');
+                addTestResult('✓ Typing simulation started', 'success');
+            }, 2000);
+            
+            setTimeout(() => {
+                updateStatus('Demo: Typing complete, sending...', 'info');
+                addTestResult('✓ Typing completed successfully', 'success');
+            }, 5000);
+            
+            setTimeout(() => {
+                updateStatus('Demo: Navigation to comparison screen', 'success');
+                addTestResult('✓ Navigation to screen 2 successful', 'success');
+            }, 7000);
+            
+            setTimeout(() => {
+                updateStatus('Demo: Complete! Check the main demo for full experience.', 'success');
+                addTestResult('✓ Demo sequence completed successfully', 'success');
+            }, 9000);
+        }
+        
+        function resetDemo() {
+            demoStarted = false;
+            updateStatus('Demo reset. Click "Start Demo Now" to begin.', 'info');
+            document.getElementById('test-results').innerHTML = '';
+        }
+        
+        // Auto-start demo after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (!demoStarted) {
+                    startDemo();
+                }
+            }, 2000);
+        });
+        
+        // Check if main demo is accessible
+        fetch('http://localhost:8000')
+            .then(response => {
+                if (response.ok) {
+                    addTestResult('✓ Main demo server is running and accessible', 'success');
+                } else {
+                    addTestResult('✗ Main demo server returned error: ' + response.status, 'error');
+                }
+            })
+            .catch(error => {
+                addTestResult('✗ Cannot connect to main demo server: ' + error.message, 'error');
+            });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "name": "agentos-demo",
+  "version": "1.0.0",
+  "description": "AgentOS: AI-Native Interface Demo - Pipe Burst Tracer Wire Discovery",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "serve": "python -m http.server 8000",
+    "test": "echo \"No tests specified\" && exit 0",
+    "build": "echo \"No build process required\" && exit 0"
+  },
+  "keywords": [
+    "ai-native",
+    "interface",
+    "demo",
+    "mobile",
+    "web-app",
+    "tracer-wire",
+    "pipe-bursting"
+  ],
+  "author": "The Right Horse",
+  "license": "Demo",
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/agentos-demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/agentos-demo/issues"
+  },
+  "homepage": "https://github.com/your-org/agentos-demo#readme"
+}
