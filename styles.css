@@ -54,7 +54,7 @@ body {
     transform: translateX(100%);
     transition: var(--transition);
     overflow-y: auto;
-    padding: 20px 20px 0 20px;
+    padding: 0;
     display: flex;
     flex-direction: column;
 }
@@ -265,7 +265,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 430px;
+    max-width: 90%;
     background: var(--bg-primary);
     z-index: 20;
     transition: var(--transition);
@@ -395,16 +395,17 @@ body {
     border-radius: var(--border-radius);
     padding: 20px;
     position: fixed;
-    bottom: 30px;
+    bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 430px;
+    max-width: 90%;
     box-shadow: var(--shadow-medium);
     border: 2px solid transparent;
     transition: var(--transition);
     cursor: pointer;
     z-index: 20;
+    display: none;
 }
 
 .unified-quote-section:hover {
@@ -1120,7 +1121,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 400px;
+    max-width: 90%;
     padding: 0 20px;
     z-index: 9999;
     pointer-events: auto;

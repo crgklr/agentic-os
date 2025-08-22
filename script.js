@@ -295,10 +295,15 @@ class AgentOS {
             cta.style.display = 'none';
         });
 
-        // Hide NY Times CTA when showing vendor view
+        // Hide NY Times CTA and unified quote section when showing vendor view
         const nytCta = document.querySelector('.nyt-fixed-cta');
         if (nytCta) {
             nytCta.style.display = 'none';
+        }
+        
+        const unifiedQuoteSection = document.querySelector('.unified-quote-section');
+        if (unifiedQuoteSection) {
+            unifiedQuoteSection.style.display = 'none';
         }
 
         // Show selected vendor view and CTA
@@ -337,7 +342,7 @@ class AgentOS {
         }
 
         // Hide all fixed CTAs first
-        document.querySelectorAll('.fixed-cta, .nyt-fixed-cta').forEach(cta => {
+        document.querySelectorAll('.fixed-cta, .nyt-fixed-cta, .unified-quote-section').forEach(cta => {
             cta.style.display = 'none';
         });
 
@@ -354,7 +359,14 @@ class AgentOS {
         console.log(`Updated current screen to: ${this.currentScreen}`);
 
         // Show appropriate fixed CTA based on screen
-        if (screenNumber === 4 && !this.isSubscribed) {
+        if (screenNumber === 2) {
+            // Show unified quote section on comparison screen
+            const unifiedQuoteSection = document.querySelector('.unified-quote-section');
+            if (unifiedQuoteSection) {
+                unifiedQuoteSection.style.display = 'block';
+                console.log('Showing unified quote section');
+            }
+        } else if (screenNumber === 4 && !this.isSubscribed) {
             // Show NY Times CTA only if not subscribed
             const nytCta = document.querySelector('.nyt-fixed-cta');
             if (nytCta) {
